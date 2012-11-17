@@ -241,19 +241,10 @@ class Query {
 		}
 	}
 	
-	public function execute($termo, $canal, $subportal) {
+	public function execute($term) {
 		
-		if ( strlen($termo) > 0 ) {
-			$tipoRefino = $_REQUEST["tiporefino"];
-			if ( $tipoRefino == "categorias" || $tipoRefino == "intra" || strlen($tipoRefino) == 0 ) { 
-				$this->query = 'and(string("' . str_replace('"', '', $termo) . '", mode="simpleall", annotation_class="user"), classificacao:not(1))';
-			}
-			else if ($tipoRefino == "procedimento") {
-				$this->query = 'and(string("' . str_replace('"', '', $termo) . '", mode="simpleall", annotation_class="user"), or(classificacao:1, generic1:"' . str_replace('"', '', $termo) . '"))';
-			}
-			else if ($tipoRefino == "localidades") {
-				$this->query = 'string("' . str_replace('"', '', $termo) . '", mode="simpleall", annotation_class="user")';
-			}
+		if ( strlen($term) > 0 ) {
+			$this->query = 'string("' . str_replace('"', '', $termo) . '", mode="simpleall", annotation_class="user")';
 		}
 	
 		$this->prepareQuery();
